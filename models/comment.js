@@ -3,30 +3,32 @@ const moment = require('moment');
 
 const ReplySchema = new Schema(
     {
-        // set custom id to avoid confusion with parent comment _id
-        replyId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId()
-        },
-        replyBody: {
-            type: String
-        },
-        writtenBy: {
-            type: String
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
-        }
+      // set custom id to avoid confusion with parent comment _id
+      replyId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+      },
+      replyBody: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      writtenBy: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+      }
     },
     {
-        toJSON: {
-            getters: true,
-            virtuals: true
-        }
+      toJSON: {
+        getters: true
+      }
     }
-);
+  )
 
 const CommentSchema = new Schema(
     {
